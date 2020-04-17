@@ -93,7 +93,12 @@ STEP 5: Stop Location Update
     ``locationTracker.stopLocationTracker(LocationUpdate.ALL)``
     To stop specified update, use ``LocationUpdate.GPS`` , ``LocationUpdate.NETWORK`` , ``LocationUpdate.FUSED_LOCATION``
 
-                       
+STEP 6: Other Feature
+    To Find Distance between two location 
+        ``HaversineAlgorithm().HaversineInM( lat1: Double, long1: Double,  lat2: Double, long2: Double)``
+    
+        ``HaversineAlgorithm().HaversineInKM( lat1: Double, long1: Double,  lat2: Double, long2: Double)``
+    
 ## NOTE:
 1. onDestroy make sure location update stoped or not. If you want to run in background continiously then check the demo app.
                       
