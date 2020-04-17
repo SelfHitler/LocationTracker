@@ -80,13 +80,13 @@ STEP 4: Start Location Update
    ``startLocationTracker(LocationUpdate.GPS)``
 
    To get NETWORK location updates
-   ``startLocationTracker(LocationUpdate.NETWORK)
+   ``startLocationTracker(LocationUpdate.NETWORK)``
 
    To get Google Fused location updates
-   ``startLocationTracker(LocationUpdate.FUSED_LOCATION)
+   ``startLocationTracker(LocationUpdate.FUSED_LOCATION)``
    
    To get All Location Updates
-   ``startLocationTracker(LocationUpdate.ALL)    
+   ``startLocationTracker(LocationUpdate.ALL)``
    
    
 STEP 5: Stop Location Update
