@@ -14,14 +14,16 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.google.android.gms.location.*
 
-abstract class LocationTracker(private val context: Context) {
+abstract class LocationTracker(var context: Context) {
 
     private var mLocationRequest: LocationRequest? = null
-    private var gpsLocationManager: LocationManager? = null
-    private var networkLocationManager: LocationManager? = null
     private var previousApiLocation: Location? = null
 
-    private var permissionCheck = PermissionCheck(context = context)
+    private var gpsLocationManager: LocationManager? = null
+    private var networkLocationManager: LocationManager? = null
+    private var mFusedLocationProviderClient: FusedLocationProviderClient? = null
+
+    private var permissionCheck : PermissionCheck = PermissionCheck(context = context)
 
     val isGPSEnabled :Boolean
         get() {
@@ -36,8 +38,6 @@ abstract class LocationTracker(private val context: Context) {
                 .getSystemService(Context.LOCATION_SERVICE) as LocationManager
             return networkLocationManager?.isProviderEnabled(LocationManager.NETWORK_PROVIDER)?:false
         }
-
-    private var mFusedLocationProviderClient: FusedLocationProviderClient? = null
 
     private var updateInterval :Long = 5 * 1000
     private var fastestInterval:Long = 5 * 1000
@@ -211,13 +211,13 @@ abstract class LocationTracker(private val context: Context) {
             }
         }
 
-    fun updateInterval(updateInterval:Long,fastestInterval:Long , minimumDistance :Float, locationUpdate:LocationUpdate){
+    fun startLocationTracker(updateInterval:Long,fastestInterval:Long , minimumDistance :Float, locationUpdate:LocationUpdate){
 
         if(permissionCheck.checkPermission(permissionCheck.LOCATION_PERMISSIONS)) {
 
-            if (updateInterval > 1000 && fastestInterval > 1000) {
+            if (updateInterval < 1000 && fastestInterval < 1000) {
 
-                onFailure(ErrorMessage.INTERVAL_UPDATE_FAILED)
+                onFailure(ErrorMessage.FAILED_TO_START)
 
                 return
 
@@ -227,8 +227,8 @@ abstract class LocationTracker(private val context: Context) {
                 this.fastestInterval = fastestInterval
                 this.minimumDistance = minimumDistance
 
-                //stopLocationTracker(locationUpdate)
-                //startLocationTracker(locationUpdate)
+                stopLocationTracker(locationUpdate)
+                startLocationTracker(locationUpdate)
 
             }
         } else {

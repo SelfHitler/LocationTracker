@@ -13,27 +13,31 @@ import com.yabaze.trackinghelperlibrary.SuccessMessage
 
 class TrackingService : IntentService("TrackingService") {
 
-    private val locationTracker = object: LocationTracker(this){
-
-        override fun onLocationChanged(
-            networkLocation: Location?,
-            networkLocationSpeed: Double,
-            locationUpdate: LocationUpdate
-        ) {
-            Log.e("${locationUpdate.name}", networkLocation?.latitude.toString())
-        }
-
-        override fun onFailure(errorMessage: ErrorMessage) {
-            Log.e("ERROR",errorMessage.name)
-        }
-
-        override fun onSuccess(successMessage: SuccessMessage) {
-            Log.e("SUCCESS",successMessage.name)
-        }
-
-    }
-
     override fun onHandleIntent(intent: Intent?) {
+
+        if(locationTracker==null){
+
+            locationTracker = object: LocationTracker(this@TrackingService){
+
+                override fun onLocationChanged(
+                    networkLocation: Location?,
+                    networkLocationSpeed: Double,
+                    locationUpdate: LocationUpdate
+                ) {
+                    Log.e("${locationUpdate.name}", networkLocation?.latitude.toString())
+                }
+
+                override fun onFailure(errorMessage: ErrorMessage) {
+                    Log.e("ERROR",errorMessage.name)
+                }
+
+                override fun onSuccess(successMessage: SuccessMessage) {
+                    Log.e("SUCCESS",successMessage.name)
+                }
+
+            }
+        }
+
         when (intent?.action) {
             ServiceAction.ACTION_START.name -> {
                 handleActionStart()
@@ -51,13 +55,13 @@ class TrackingService : IntentService("TrackingService") {
      * parameters.
      */
     private fun handleActionStart() {
-        locationTracker.apply {
-            updateInterval(2000,2000,1f,LocationUpdate.ALL)
-            startLocationTracker(LocationUpdate.ALL)
+        locationTracker?.apply {
+            startLocationTracker(2000,2000,1f,LocationUpdate.ALL)
+            //startLocationTracker(LocationUpdate.ALL)
 
             Handler().postDelayed(
                 {
-                    locationTracker.stopLocationTracker(LocationUpdate.ALL)
+                    locationTracker?.stopLocationTracker(LocationUpdate.ALL)
                 },5000
             )
 
@@ -70,7 +74,8 @@ class TrackingService : IntentService("TrackingService") {
      * parameters.
      */
     private fun handleActionStop() {
-        locationTracker.stopLocationTracker(LocationUpdate.ALL)
+        locationTracker?.stopLocationTracker(LocationUpdate.ALL)
+        stopSelf()
     }
 
     companion object {
@@ -98,12 +103,15 @@ class TrackingService : IntentService("TrackingService") {
         // TODO: Customize helper method
         @JvmStatic
         fun stopTrackingService(context: Context) {
-            //val intent = Intent(context, TrackingService::class.java).apply {
-              //  action = ServiceAction.ACTION_STOP.name
-            //}
-            //context.startService(intent)
+            val intent = Intent(context, TrackingService::class.java).apply {
+                action = ServiceAction.ACTION_STOP.name
+            }
+            context.startService(intent)
 
         }
+
+        var locationTracker : LocationTracker? = null
+
     }
 
 }
