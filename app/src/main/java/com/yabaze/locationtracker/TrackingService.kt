@@ -57,7 +57,7 @@ class TrackingService : IntentService("TrackingService") {
     private fun handleActionStart() {
         locationTracker?.apply {
             startLocationTracker(2000,2000,1f,LocationUpdate.ALL)
-            //startLocationTracker(LocationUpdate.ALL)
+            startLocationTracker(LocationUpdate.FUSED_LOCATION)
 
             Handler().postDelayed(
                 {
