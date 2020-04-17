@@ -9,6 +9,7 @@ Feature
 1. Location Based on Network
 2. Location Based on GPS
 3. Location Based on Google Fused Location Client
+4. Movement Speed Based on Previous Location (Harversine Algorithm used)
 
 How To
 -----------------
@@ -72,9 +73,30 @@ STEP 3: Must declare this Variable
         }
     };
 
+STEP 4: Check Location Permission
+      
+      ``Kotlin``
+      val permissionCheck = PermissionCheck(context)
+      permissionCheck.checkPermission(permissionCheck.LOCATION_PERMISSIONS)
+      
+      ``Java``
+      PermissionCheck permissionCheck = PermissionCheck(context);
+      permissionCheck.checkPermission(permissionCheck.LOCATION_PERMISSIONS);
 
+      use permissionCheck.STORAGE_AND_CAMERA_PERMISSIONS -> for storage and camera
+      PermissionCheck.STORAGE_PERMISSIONS -> only for storage
+      PermissionCheck.CAMERA_PERMISSIONS -> only for Camera
+      
+      in Android Q only for storage add below lines in manifest file
+      
+          <application
+               android:requestLegacyExternalStorage="true"
+               ....>
+               ...
+          </application>     
+      
 
-STEP 4: Start Location Update
+STEP 5: Start Location Update
 
    To get GPS location updates    
    
@@ -93,13 +115,13 @@ STEP 4: Start Location Update
         startLocationTracker(LocationUpdate.ALL)
    
    
-STEP 5: Stop Location Update
+STEP 6: Stop Location Update
     
     locationTracker.stopLocationTracker(LocationUpdate.ALL)
     
     To stop specified update, use LocationUpdate.GPS , LocationUpdate.NETWORK , LocationUpdate.FUSED_LOCATION
 
-STEP 6: Other Feature
+STEP 7: Other Feature
         To Find Distance between two location 
     
            HaversineAlgorithm().HaversineInM( lat1: Double, long1: Double,  lat2: Double, long2: Double)
