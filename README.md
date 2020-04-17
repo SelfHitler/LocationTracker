@@ -1,16 +1,14 @@
 ## LocationTracker
 Android Location Tracking Library 
 
-Feature
--------------
-1. Location Based on Network
-2. Location Based on GPS
-3. Location Based on Google Fused Location Client
-
 [![License](https://img.shields.io/badge/license-Apache%202-4EB1BA.svg)](https://www.apache.org/licenses/LICENSE-2.0.html)
 [![Sdk](https://img.shields.io/badge/sdk-16%2B-brightgreen.svg?style=plastic)](https://android-arsenal.com/api?level=16)
 
-
+Feature
+-----------------
+1. Location Based on Network
+2. Location Based on GPS
+3. Location Based on Google Fused Location Client
 
 How To
 -----------------
