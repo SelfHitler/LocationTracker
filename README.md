@@ -77,27 +77,34 @@ STEP 3: Must declare this Variable
 STEP 4: Start Location Update
 
    To get GPS location updates    
-   ``startLocationTracker(LocationUpdate.GPS)``
+   
+        startLocationTracker(LocationUpdate.GPS)
 
    To get NETWORK location updates
-   ``startLocationTracker(LocationUpdate.NETWORK)``
+   
+        startLocationTracker(LocationUpdate.NETWORK)
 
    To get Google Fused location updates
-   ``startLocationTracker(LocationUpdate.FUSED_LOCATION)``
+   
+        startLocationTracker(LocationUpdate.FUSED_LOCATION)
    
    To get All Location Updates
-   ``startLocationTracker(LocationUpdate.ALL)``
+   
+        startLocationTracker(LocationUpdate.ALL)
    
    
 STEP 5: Stop Location Update
-    ``locationTracker.stopLocationTracker(LocationUpdate.ALL)``
-    To stop specified update, use ``LocationUpdate.GPS`` , ``LocationUpdate.NETWORK`` , ``LocationUpdate.FUSED_LOCATION``
+    
+    locationTracker.stopLocationTracker(LocationUpdate.ALL)
+    
+    To stop specified update, use LocationUpdate.GPS , LocationUpdate.NETWORK , LocationUpdate.FUSED_LOCATION
 
 STEP 6: Other Feature
-    To Find Distance between two location 
-        ``HaversineAlgorithm().HaversineInM( lat1: Double, long1: Double,  lat2: Double, long2: Double)``
+        To Find Distance between two location 
     
-        ``HaversineAlgorithm().HaversineInKM( lat1: Double, long1: Double,  lat2: Double, long2: Double)``
+           HaversineAlgorithm().HaversineInM( lat1: Double, long1: Double,  lat2: Double, long2: Double)
+    
+           HaversineAlgorithm().HaversineInKM( lat1: Double, long1: Double,  lat2: Double, long2: Double)
     
 ## NOTE:
 1. onDestroy make sure location update stoped or not. If you want to run in background continiously then check the demo app.
