@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>Location Tracker by SelfHitler</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">Location Tracker</h1>
+      <h2 class="project-tagline">Track Android Location Easily</h2>
+      <a href="https://github.com/SelfHitler/LocationTracker" class="btn">View on GitHub</a>
+      <a href="https://github.com/SelfHitler/LocationTracker/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/SelfHitler/LocationTracker/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
+
+    <section class="main-content">
+      <h1>
+<a id="locationtracker" class="anchor" href="#locationtracker" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>LocationTracker</h1>
+<p>To Track Location in android, So many things we have to consider. Like Google Play service, Location Permission, Android Pie &amp; Q changes, Network Location, Fused Location &amp; GPS location. But now onwards no need to worry about these. Without writing boilerplate code, Easily we can fetch location. To Fetch Location LocationTracker is giving a better solution to take advantage. It Helps in Handling So many things like Network Settings, GPS settings and so on.</p>
+<h2>
+<a id="feature" class="anchor" href="#feature" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Feature</h2>
+<ul>
+<li>Location-Based on Network</li>
+<li>Location-Based on GPS</li>
+<li>Location-Based on Google Fused Location Client</li>
+<li>Movement Speed Based on Previous Location &amp; Distance Calculation Based on Previous Location (Harversine Algorithm used)</li>
+<li>Automatic check on Play Service, Network &amp; GPS</li>
+<li>At the same time, you can start Network &amp; GPS &amp; Fused Location Updates.</li>
+<li>Runtime Permission</li>
+<li>Quick Location Updates &amp; We can use in both Java &amp; Kotlin &amp; Easy To integrate.</li>
+</ul>
+<h2>
+<a id="implementation" class="anchor" href="#implementation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Implementation</h2>
+<p>To Implement This library, watch <a href="https://youtu.be/b7Hlo-MauXs">YouTube</a> video. It Will help you more in-depth. To Implement We have to follow some steps. Steps are following…!</p>
+<h2>
+<a id="step-1-add-maven-jitpack-url-in-project-gradle" class="anchor" href="#step-1-add-maven-jitpack-url-in-project-gradle" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Step 1: Add Maven Jitpack URL in project Gradle</h2>
+<pre><code>    all projects {
+      repositories {
+        // ...
+        maven { url 'https://jitpack.io' }
+
+      }
+    }
+</code></pre>
+<h2>
+<a id="step-2-add-library-dependency-in-app-gradle" class="anchor" href="#step-2-add-library-dependency-in-app-gradle" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Step 2: Add Library Dependency in App Gradle</h2>
+<pre><code>    implementation "com.github.SelfHitler:LocationTracker:V1.0.0"
+</code></pre>
+<h2>
+<a id="step-3-declare-location-tracker-variable" class="anchor" href="#step-3-declare-location-tracker-variable" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Step 3: Declare Location Tracker Variable</h2>
+<pre><code> With this variable, you can access network state of your device. And you can check GPS settings &amp; Play Service Library also you can test. This one you can implement as an interface also in your project.
+</code></pre>
+<h3>
+<a id="kotlin" class="anchor" href="#kotlin" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Kotlin</h3>
+<pre><code>val locationTracker = object: LocationTracker(context){
+
+            override fun onLocationChanged(
+                networkLocation: Location?,
+                networkLocationSpeed: Double,
+                locationUpdate: LocationUpdate
+            ) {
+                Log.e("${locationUpdate.name}", networkLocation?.latitude.toString())
+            }
+
+            override fun onFailure(errorMessage: ErrorMessage) {
+                Log.e("ERROR",errorMessage.name)
+            }
+
+            override fun onSuccess(successMessage: SuccessMessage) {
+                Log.e("SUCCESS",successMessage.name)
+            }
+
+        }
+</code></pre>
+<h2>
+<a id="java" class="anchor" href="#java" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Java</h2>
+<pre><code> LocationTracker locationTracker = new LocationTracker(context) {
+    @Override
+    protected void onSuccess(@NotNull SuccessMessage successMessage) {
+
+    }
+
+    @Override
+    protected void onFailure(@NotNull ErrorMessage errorMessage) {
+
+    }
+
+    @Override
+    protected void onLocationChanged(@Nullable Location networkLocation, double networkLocationSpeed, @NotNull LocationUpdate locationUpdate) {
+        
+    }
+};
+</code></pre>
+<h2>
+<a id="step-4-check-runtime-permission" class="anchor" href="#step-4-check-runtime-permission" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Step 4: Check Runtime Permission</h2>
+<p>To check Runtime permission also Location Tracker is giving inbuilt functionalities. Not only for Location. You can Ask Runtime Permission for any permissions. Android Q Permission Changes also there in it.</p>
+<h3>
+<a id="kotlin-1" class="anchor" href="#kotlin-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Kotlin</h3>
+<pre><code>  val permissionCheck = PermissionCheck(context)
+  permissionCheck.checkPermission(permissionCheck.LOCATION_PERMISSIONS)
+</code></pre>
+<h3>
+<a id="java-1" class="anchor" href="#java-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Java</h3>
+<pre><code>  PermissionCheck permissionCheck = PermissionCheck(context);
+  permissionCheck.checkPermission(permissionCheck.LOCATION_PERMISSIONS);
+</code></pre>
+<blockquote>
+<p>To check Camera &amp; Storage Permission <code>permissionCheck.STORAGE_AND_CAMERA_PERMISSIONS</code></p>
+</blockquote>
+<blockquote>
+<p>Only For Storage <code>PermissionCheck.STORAGE_PERMISSIONS</code></p>
+</blockquote>
+<blockquote>
+<p>Only For Camera  <code>PermissionCheck.CAMERA_PERMISSIONS</code></p>
+</blockquote>
+<blockquote>
+<p>Particularly To Ask Storage Permission, in Android Q and above you have to add below lines in the manifest file</p>
+</blockquote>
+<pre><code>      &lt;application
+           android:requestLegacyExternalStorage="true"
+           ....&gt;
+           ...
+      &lt;/application&gt;     
+</code></pre>
+<h2>
+<a id="step-5-start-location-update" class="anchor" href="#step-5-start-location-update" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>STEP 5: Start Location Update</h2>
+<h3>
+<a id="to-get-gps-location-updates" class="anchor" href="#to-get-gps-location-updates" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>To get GPS location updates</h3>
+<pre><code>    startLocationTracker(LocationUpdate.GPS)
+</code></pre>
+<h3>
+<a id="to-get-network-location-updates" class="anchor" href="#to-get-network-location-updates" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>To get NETWORK location updates</h3>
+<pre><code>    startLocationTracker(LocationUpdate.NETWORK)
+</code></pre>
+<h3>
+<a id="to-get-google-fused-location-updates" class="anchor" href="#to-get-google-fused-location-updates" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>To get Google Fused location updates</h3>
+<pre><code>    startLocationTracker(LocationUpdate.FUSED_LOCATION)
+</code></pre>
+<h3>
+<a id="to-get-all-location-updates" class="anchor" href="#to-get-all-location-updates" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>To get All Location Updates</h3>
+<pre><code>    startLocationTracker(LocationUpdate.ALL)
+</code></pre>
+<h2>
+<a id="step-6-stop-location-update" class="anchor" href="#step-6-stop-location-update" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>STEP 6: Stop Location Update</h2>
+<pre><code>locationTracker.stopLocationTracker(LocationUpdate.ALL)
+
+To stop specified update, use `LocationUpdate.GPS , LocationUpdate.NETWORK , LocationUpdate.FUSED_LOCATION`
+</code></pre>
+<h2>
+<a id="step-7-other-feature" class="anchor" href="#step-7-other-feature" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>STEP 7: Other Feature</h2>
+<blockquote>
+<p>To Find Distance between two location</p>
+</blockquote>
+<pre><code>       HaversineAlgorithm().HaversineInM( lat1: Double, long1: Double,  lat2: Double, long2: Double)
+
+       HaversineAlgorithm().HaversineInKM( lat1: Double, long1: Double,  lat2: Double, long2: Double)
+</code></pre>
+<hr>
+<h3>
+<a id="note" class="anchor" href="#note" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>NOTE:</h3>
+<ol>
+<li>onDestroy make sure location update stoped or not. If you want to run in the background continuously then check the demo app.</li>
+</ol>
+<h2>
+<a id="author" class="anchor" href="#author" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Author</h2>
+<p><g-emoji class="g-emoji" alias="bust_in_silhouette" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f464.png">👤</g-emoji> <strong>Yabaze</strong></p>
+<ul>
+<li>FaceBook: <a href="https://www.facebook.com/mirakle.yabaze">@MirakleYabaze</a>
+</li>
+<li>twitter: <a href="https://twitter.com/mirakleyabaze">@MirakleYabaze</a>
+</li>
+<li>instagram: <a href="https://www.instagram.com/yabaze1/">@Yabaze1</a>
+</li>
+</ul>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/SelfHitler/LocationTracker">Location Tracker</a> is maintained by <a href="https://github.com/SelfHitler">SelfHitler</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+  
+  </body>
+</html>
