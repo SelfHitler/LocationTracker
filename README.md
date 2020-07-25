@@ -137,7 +137,7 @@ STEP 7: Other Feature
 
 - FaceBook: [@MirakleYabaze](https://www.facebook.com/mirakle.yabaze)
 - twitter: [@MirakleYabaze](https://twitter.com/mirakleyabaze)
-- instagram: [@Yabaze1](https://www.instagram.com/yabaze1/)
+- instagram: [@Yabaze1](https://www.instagram.com/sound_of.heart/)
 
 License
 -----------------
