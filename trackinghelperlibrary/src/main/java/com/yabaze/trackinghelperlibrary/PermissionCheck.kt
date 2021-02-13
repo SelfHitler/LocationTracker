@@ -86,7 +86,7 @@ class PermissionCheck(private val context: Context) {
             REQUIRE_PERMISSIONS = arrayOf(
                 permission.ACCESS_FINE_LOCATION,
                 permission.ACCESS_COARSE_LOCATION,
-                permission.ACCESS_BACKGROUND_LOCATION,
+                //permission.ACCESS_BACKGROUND_LOCATION,
                 permission.CAMERA,
                 permission.READ_PHONE_STATE,
                 permission.WRITE_EXTERNAL_STORAGE,
@@ -94,7 +94,7 @@ class PermissionCheck(private val context: Context) {
             )
             LOCATION_PERMISSIONS = arrayOf(
                 permission.ACCESS_FINE_LOCATION,
-                permission.ACCESS_BACKGROUND_LOCATION,
+                //permission.ACCESS_BACKGROUND_LOCATION,
                 permission.ACCESS_COARSE_LOCATION
             )
         }
